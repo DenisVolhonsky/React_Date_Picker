@@ -17,7 +17,7 @@ export default class DatePicker extends Component {
       from: null,
       to: null,
       enteredTo: null, // Keep track of the last day for mouseEnter.
-      rangeDuration: false,
+      
     }
   }
   isSelectingFirstDay(from, to, day) {
@@ -88,11 +88,13 @@ export default class DatePicker extends Component {
               type="text" 
               className="inputDate" 
               value={`${englishFrom}`}
+              readOnly
             />
             <input 
               type="text" 
               className="inputDate" 
               value={`${englishTo}`}
+              readOnly
             />
           </div>
           <DayPicker

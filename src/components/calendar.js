@@ -10,12 +10,12 @@ export default class Calendar extends Component {
     super(props)
     this.state = this.getInitialState()
     this.handleRange = this.handleRange.bind(this) 
-    this.customRange = this.customRange.bind(this) 
+    this.addRange = this.addRange.bind(this)
   }
   getInitialState() {
     return {
       rangeDuration: false,
-      custom: false,
+      addCustomRange: false,
     }
   }
 
@@ -24,17 +24,39 @@ export default class Calendar extends Component {
       rangeDuration: !this.state.rangeDuration,
     })
   }
-
-  customRange() {
-    this.setState({
-      custom: !this.state.custom,
-    })
+  
+  addRange(item) {
+    const dateNow = new Date()
+    switch (item) {
+      case 'Custom Range': 
+        this.setState({
+          addCustomRange: !this.state.addCustomRange,
+          rangeDuration: !this.state.rangeDuration,
+        })
+      break  
+      case 'Live': console.log(dateNow)
+      break
+      case 'Today': console.log('Today')
+      break
+      case 'Yesterday': console.log('Yesterday')
+      break
+      case 'This Week': console.log('This Week')
+      break
+      case 'Last Week': console.log('Last Week')
+      break
+      case 'Last 30 Days': console.log('Last 30 Days')
+      break
+      case 'This Month': console.log('This Month')
+      break
+      case 'Last Month': console.log('Last Month')
+      break
+      default: 
+        console.log('Range error!')                  
+    }
   }
 
   render() {
-    const {rangeDuration, custom} = this.state
-    const onlyRange = <div className="rangeContainer"><Range/></div>
-  
+    const {rangeDuration, addCustomRange} = this.state
     return (
       <div className="container">
         <button 
@@ -42,18 +64,8 @@ export default class Calendar extends Component {
           onClick={this.handleRange}>
           Select Duration
         </button>
-        
-        {/* temporary code */}
-        <button 
-          className="selectDuration" 
-          onClick={this.customRange}>
-          Custom Range
-        </button>
-        {/* end temporary code */}
-
-        {rangeDuration===true ? onlyRange : null}
-        
-        {custom===true ? <DatePicker/> : null}
+        {rangeDuration === true ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div> : null}
+        {addCustomRange === true ? <DatePicker/> : null}
     </div>
     )
   }
