@@ -172,3 +172,27 @@
 .DayPicker-Day--today {
   color: white;
 }
+
+.selectDuration {
+  margin: 50px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #13ae38;
+  color: #fff;
+  text-shadow: none;
+  min-height: 1em;
+  outline: 0;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+
+}
+.selectDuration:hover {
+  background: #00b719;
+}
+
+.rangeContainer {
+  max-width: 168px;
+  background: rgba(32,39,34,.9);
+  padding: 10px;
+}
