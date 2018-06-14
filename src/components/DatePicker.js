@@ -58,8 +58,8 @@ export default class DatePicker extends Component {
 
   render() {
     const { from, to, enteredTo} = this.state
-    let englishFrom
-    let englishTo
+    let decorateFrom
+    let decorateTo
     const today  = new Date()
     const modifiers = { start: from, end: enteredTo }
     const disabledDays = { before: this.state.from }
@@ -68,32 +68,34 @@ export default class DatePicker extends Component {
     // changing date format
     if(from !== null) {
       let arrFrom = from.toLocaleDateString().split('.')
-      englishFrom = [arrFrom[1], arrFrom[0], arrFrom[2]].join('/')
+      decorateFrom = [arrFrom[1], arrFrom[0], arrFrom[2]].join('/')
     }
-    else englishFrom = today.toLocaleDateString("en-US")
+    else decorateFrom = today.toLocaleDateString("en-US")
     
     if(to !== null) {
       let arrTo = to.toLocaleDateString().split('.')
-      englishTo = [arrTo[1], arrTo[0], arrTo[2]].join('/')
+      decorateTo = [arrTo[1], arrTo[0], arrTo[2]].join('/')
     }
-    else englishTo = today.toLocaleDateString("en-US")
+    else decorateTo = today.toLocaleDateString("en-US")
     // end changing date format
+
+    this.props.onSelectDate(from, to)  
 
     return (
         <div className="dateContainer">
-        <Range />
+        <Range onTodoClick={this.props.onTodoClick}/>
         <div className="CalendarWrapper">
           <div className="DateRangeContainer">
             <input 
               type="text" 
               className="inputDate" 
-              value={`${englishFrom}`}
+              value={`${decorateFrom}`}
               readOnly
             />
             <input 
               type="text" 
               className="inputDate" 
-              value={`${englishTo}`}
+              value={`${decorateTo}`}
               readOnly
             />
           </div>

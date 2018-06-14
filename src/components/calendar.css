@@ -195,5 +195,5 @@
   display: inline-flex;
   max-width: 168px;
   background: rgba(32,39,34,.9);
-  padding: 10px;
+  border-radius: 5px;
 }

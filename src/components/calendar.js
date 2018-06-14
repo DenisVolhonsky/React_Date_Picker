@@ -3,6 +3,7 @@ import 'react-day-picker/lib/style.css'
 import './calendar.css'
 import Range from './Range'
 import DatePicker from './DatePicker'
+import getTime from './time'
 
 
 export default class Calendar extends Component {
@@ -26,15 +27,14 @@ export default class Calendar extends Component {
   }
   
   addRange(item) {
-    const dateNow = new Date()
-    switch (item) {
+     switch (item) {
       case 'Custom Range': 
         this.setState({
-          addCustomRange: !this.state.addCustomRange,
           rangeDuration: !this.state.rangeDuration,
+          addCustomRange: !this.state.addCustomRange,
         })
       break  
-      case 'Live': console.log(dateNow)
+      case 'Live': console.log(getTime())
       break
       case 'Today': console.log('Today')
       break
@@ -55,6 +55,11 @@ export default class Calendar extends Component {
     }
   }
 
+  getCustomeDate(from, to) {
+    if (from !== null && to !== null) console.log(from, to)
+    return
+  }
+
   render() {
     const {rangeDuration, addCustomRange} = this.state
     return (
@@ -64,8 +69,11 @@ export default class Calendar extends Component {
           onClick={this.handleRange}>
           Select Duration
         </button>
-        {rangeDuration === true ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div> : null}
-        {addCustomRange === true ? <DatePicker/> : null}
+        {
+         rangeDuration && !addCustomRange ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div> :
+         !rangeDuration && addCustomRange ? <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate}/> :
+         null
+        }
     </div>
     )
   }
