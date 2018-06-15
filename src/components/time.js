@@ -1,9 +1,10 @@
-const getTime = () => {
+const getTime = (range) => {
     const toUnixDateNow = Date.now() // unix
 
     const live = new Date(toUnixDateNow)
     //const today1 = new Date(toUnixDateNow)
     //const today2 = new Date(toUnixDateNow)
+    const interval = 1000 * 60 * 60 * 24; // 24 hours in milliseconds
 
 
     return live
