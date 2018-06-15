@@ -67,16 +67,14 @@ export default class DatePicker extends Component {
 
     // changing date format
     if(from !== null) {
-      let arrFrom = from.toLocaleDateString().split('.')
-      decorateFrom = [arrFrom[1], arrFrom[0], arrFrom[2]].join('/')
+      decorateFrom = from.toLocaleDateString().split('.').join('/')
     }
-    else decorateFrom = today.toLocaleDateString("en-US")
+    else decorateFrom = today.toLocaleDateString().split('.').join('/')
     
     if(to !== null) {
-      let arrTo = to.toLocaleDateString().split('.')
-      decorateTo = [arrTo[1], arrTo[0], arrTo[2]].join('/')
+      decorateTo = to.toLocaleDateString().split('.').join('/')
     }
-    else decorateTo = today.toLocaleDateString("en-US")
+    else decorateTo = today.toLocaleDateString().split('.').join('/')
     // end changing date format
 
     this.props.onSelectDate(from, to)  

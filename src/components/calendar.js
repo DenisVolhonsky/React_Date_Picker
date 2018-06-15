@@ -3,8 +3,7 @@ import 'react-day-picker/lib/style.css'
 import './calendar.css'
 import Range from './Range'
 import DatePicker from './DatePicker'
-import getTime from './time'
-
+import dateDecoration from './TimeDecorator'
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -28,30 +27,26 @@ export default class Calendar extends Component {
   
   addRange(item) {
     const live = new Date()
-
     const weekDay = live.getDay()
     const Year = live.getFullYear()
     const Month = live.getMonth()
     const Day = live.getDate()
-    const Hour = live.getHours()
-    const Minutes = live.getMinutes()
-    const Seconds = live.getSeconds()
-
+    const endTime = [23, 59, 59]
 
     const todayStart = new Date(Year, Month, Day)
-    const todayEnd = new Date(Year, Month, Day, 23, 59, 59)
+    const todayEnd = new Date(Year, Month, Day, ...endTime)
     const yesterdayStart = new Date(Year, Month, Day-1)
-    const yesterdayEnd = new Date(Year, Month, Day-1, 23, 59, 59)
+    const yesterdayEnd = new Date(Year, Month, Day-1, ...endTime)
     const thisWeekStart = new Date(Year, Month, Day-(weekDay-1))
-    const thisWeekEnd = new Date(Year, Month, Day+(7-weekDay), 23, 59, 59)
+    const thisWeekEnd = new Date(Year, Month, Day+(7-weekDay), ...endTime)
     const lastWeekStart = new Date(Year, Month, Day-(weekDay+6))
-    const lastWeekEnd = new Date(Year, Month, Day-weekDay, 23, 59, 59)
+    const lastWeekEnd = new Date(Year, Month, Day-weekDay, ...endTime)
     const last30DaysStart = new Date(Year, Month, Day-30)
-    const last30DaysEnd = new Date(Year, Month, Day, 23, 59, 59)
+    const last30DaysEnd = new Date(Year, Month, Day, ...endTime)
     const thisMonthStart = new Date(Year, Month)
-    const thisMonthEnd = new Date(Year, Month+1, 0, 23, 59, 59)
+    const thisMonthEnd = new Date(Year, Month+1, 0, ...endTime)
     const lastMonthStart = new Date(Year, Month-1)
-    const lastMonthEnd = new Date(Year, Month, 0, 23, 59, 59)
+    const lastMonthEnd = new Date(Year, Month, 0, ...endTime)
 
      switch (item) {
       case 'Custom Range': 
@@ -60,21 +55,21 @@ export default class Calendar extends Component {
           addCustomRange: !this.state.addCustomRange,
         })
       break  
-      case 'Live': console.log(live)
+      case 'Live': console.log('Live - ', dateDecoration(live))
       break
-      case 'Today': console.log(todayStart, todayEnd)
+      case 'Today': console.log('Today - ', dateDecoration(todayStart), dateDecoration(todayEnd))
       break
-      case 'Yesterday': console.log(yesterdayStart, yesterdayEnd)
+      case 'Yesterday': console.log('Yesterday - ', dateDecoration(yesterdayStart), dateDecoration(yesterdayEnd))
       break
-      case 'This Week': console.log(thisWeekStart, thisWeekEnd)
+      case 'This Week': console.log('This Week - ', dateDecoration(thisWeekStart), dateDecoration(thisWeekEnd))
       break
-      case 'Last Week': console.log(lastWeekStart, lastWeekEnd)
+      case 'Last Week': console.log('Last Week - ', dateDecoration(lastWeekStart), dateDecoration(lastWeekEnd))
       break
-      case 'Last 30 Days': console.log(last30DaysStart, last30DaysEnd)
+      case 'Last 30 Days': console.log('Last 30 Days - ', dateDecoration(last30DaysStart), dateDecoration(last30DaysEnd))
       break
-      case 'This Month': console.log(thisMonthStart, thisMonthEnd)
+      case 'This Month': console.log('This Month - ', dateDecoration(thisMonthStart), dateDecoration(thisMonthEnd))
       break
-      case 'Last Month': console.log(lastMonthStart, lastMonthEnd)
+      case 'Last Month': console.log('Last Month - ', dateDecoration(lastMonthStart), dateDecoration(lastMonthEnd))
       break
       default: 
         console.log('Range error!')                  
@@ -82,12 +77,13 @@ export default class Calendar extends Component {
   }
 
   getCustomeDate(from, to) {
-    if (from !== null && to !== null) console.log(from, to)
+    if (from !== null && to !== null) console.log('Custom Range - ', dateDecoration(from), dateDecoration(to))
     return
   }
 
-  componentWillMount(){
-    console.log(getTime()) // default time loader
+  componentWillMount() {
+    const timeLoader = new Date()
+    console.log('Live - ', dateDecoration(timeLoader)) // default time loader
   }
 
   render() {
