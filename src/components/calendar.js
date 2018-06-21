@@ -12,9 +12,9 @@ export default class Calendar extends Component {
     this.state = this.getInitialState()
     this.handleRange = this.handleRange.bind(this) 
     this.addRange = this.addRange.bind(this)
-    this.obj={
-      startDate:1,
-      endDate:2
+    this.obj = {
+      startDate : Math.floor(Date.now()/1000),
+      endDate : Math.floor(Date.now()/1000),
     }
   }
   getInitialState() {
@@ -38,7 +38,6 @@ export default class Calendar extends Component {
     const Day = live.getDate()
     const endTime = [23, 59, 59]
 
-    const now = Math.floor(Date.now()/1000)
     const todayStart = new Date(Year, Month, Day)
     const todayEnd = new Date(Year, Month, Day, ...endTime)
     const yesterdayStart = new Date(Year, Month, Day-1)
@@ -54,6 +53,20 @@ export default class Calendar extends Component {
     const lastMonthStart = new Date(Year, Month-1)
     const lastMonthEnd = new Date(Year, Month, 0, ...endTime)
   
+    const newDateObj = (start, end) => {
+      this.obj.startDate = unix(start)
+      this.obj.endDate = unix(end) 
+      return console.log(this.obj)
+    }
+
+    const nowDateObj = () => {
+      const now = Math.floor(Date.now()/1000)
+      this.obj.startDate = now
+      this.obj.endDate = now
+      return console.log(this.obj)
+    }
+
+
      switch (item) {
       case 'Custom Range': 
         this.setState({
@@ -61,44 +74,48 @@ export default class Calendar extends Component {
           addCustomRange: !this.state.addCustomRange,
         })
       break  
-      case 'Live': console.log('Live -', now)
+      case 'Live': nowDateObj()
       break
-      case 'Today': console.log('Today - ', unix(todayStart), unix(todayEnd))
+      case 'Today': newDateObj(todayStart,todayEnd)
       break
-      case 'Yesterday': console.log('Yesterday - ', unix(yesterdayStart), unix(yesterdayEnd))
+      case 'Yesterday':  newDateObj(yesterdayStart, yesterdayEnd)
       break
-      case 'This Week': console.log('This Week - ', unix(thisWeekStart), unix(thisWeekEnd))
+      case 'This Week': newDateObj(thisWeekStart, thisWeekEnd)
       break
-      case 'Last Week': console.log('Last Week - ', unix(lastWeekStart), unix(lastWeekEnd))
+      case 'Last Week': newDateObj(lastWeekStart, lastWeekEnd)
       break
-      case 'Last 30 Days': console.log('Last 30 Days - ', unix(last30DaysStart), unix(last30DaysEnd))
+      case 'Last 30 Days': newDateObj(last30DaysStart, last30DaysEnd)
       break
-      case 'This Month': console.log('This Month - ', unix(thisMonthStart), unix(thisMonthEnd))
+      case 'This Month': newDateObj(thisMonthStart, thisMonthEnd)
       break
-      case 'Last Month': console.log('Last Month - ', unix(lastMonthStart), unix(lastMonthEnd))
+      case 'Last Month': newDateObj(lastMonthStart, lastMonthEnd)
       break
       default: 
         console.log('Range error!')                  
     }
   }
 
-  getCustomeDate(from, to) { 
+  getCustomeDate = (from, to) => { 
+    console.log(this.obj)
     if (from !== null && to !== null) {
-      let dayFrom = unix(from)-(12*60*60)
-      let dayTo = unix(to)+((12*60*60)-1)
-      console.log('Custom Range - ', dayFrom, dayTo)}
+     let dayFrom = unix(from)-(12*60*60)
+     let dayTo = unix(to)+((12*60*60)-1)
+     this.obj.startDate = dayFrom
+     this.obj.endDate = dayTo
+      console.log(this.obj)
+    }
     return
   }
 
   componentWillMount() {
-    const now = Math.floor(Date.now()/1000)
-    console.log('Live -', now) // default time loader
+    console.log('Live -', this.obj) // default time loader
   }
 
   render() {
     const {rangeDuration, addCustomRange} = this.state
     const defaultRange = rangeDuration && !addCustomRange
     const customRange = !rangeDuration && addCustomRange
+
     return (
       <div className="container">
         <button 
