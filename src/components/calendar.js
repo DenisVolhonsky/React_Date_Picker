@@ -88,6 +88,8 @@ export default class Calendar extends Component {
 
   render() {
     const {rangeDuration, addCustomRange} = this.state
+    const defaultRange = rangeDuration && !addCustomRange
+    const customRange = !rangeDuration && addCustomRange
     return (
       <div className="container">
         <button 
@@ -96,9 +98,9 @@ export default class Calendar extends Component {
           Select Duration
         </button>
         {
-         rangeDuration && !addCustomRange ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div> :
-         !rangeDuration && addCustomRange ? <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate}/> :
-         null
+          defaultRange
+          ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div>
+          : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate}/>
         }
     </div>
     )
