@@ -1,7 +1,7 @@
 import React from 'react';
 import './calendar.css'
 
-const Range = ({onTodoClick}) => {
+const Range = ({onTodoClick, handleRange}) => {
   const range = [
     "Live",
     "Today",
@@ -16,9 +16,13 @@ const Range = ({onTodoClick}) => {
   return (
     <div className="ranges">
       <ul>
-        {range.map((item, idx) => idx === 0 ? <li key={idx} data-range-key={`${item}`} className="active" onClick={()=>onTodoClick(item)}>{`${item}`}</li>
-        :
-        <li key={idx} data-range-key={`${item}`} onClick={()=>onTodoClick(item)}>{`${item}`}</li>
+        {range.map((item, idx) => 
+          <li 
+            key={idx} 
+            data-range-key={`${item}`} 
+            className={handleRange === item ? 'active' : null } 
+            onClick={()=>onTodoClick(item)}>{`${item}`}
+          </li>
         )}
       </ul>
     </div>

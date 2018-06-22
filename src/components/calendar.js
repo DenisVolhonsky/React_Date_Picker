@@ -5,22 +5,23 @@ import Range from './Range'
 import DatePicker from './DatePicker'
 import {unix} from './TimeDecorator'
 
-
 export default class Calendar extends Component {
   constructor(props) {
     super(props)
     this.state = this.getInitialState()
     this.handleRange = this.handleRange.bind(this) 
     this.addRange = this.addRange.bind(this)
-    this.obj = {
-      startDate : Math.floor(Date.now()/1000),
-      endDate : Math.floor(Date.now()/1000),
+    this.now = Math.floor(Date.now()/1000)
+    this.objTime = {
+      startDate : this.now,
+      endDate : this.now,
     }
   }
   getInitialState() {
     return {
       rangeDuration: false,
       addCustomRange: false,
+      rangeSelect: "Live",
     }
   }
 
@@ -54,18 +55,21 @@ export default class Calendar extends Component {
     const lastMonthEnd = new Date(Year, Month, 0, ...endTime)
   
     const newDateObj = (start, end) => {
-      this.obj.startDate = unix(start)
-      this.obj.endDate = unix(end) 
-      return this.obj
+      this.objTime.startDate = unix(start)
+      this.objTime.endDate = unix(end) 
+      return this.objTime
     }
 
     const nowDateObj = () => {
       const now = Math.floor(Date.now()/1000)
-      this.obj.startDate = now
-      this.obj.endDate = now
-      return this.obj
+      this.objTime.startDate = now
+      this.objTime.endDate = now
+      return this.objTime
     }
 
+    this.setState({
+      rangeSelect: item,
+    })
 
      switch (item) {
       case 'Custom Range': 
@@ -76,7 +80,7 @@ export default class Calendar extends Component {
       break  
       case 'Live': nowDateObj()
       break
-      case 'Today': newDateObj(todayStart,todayEnd)
+      case 'Today':  newDateObj(todayStart,todayEnd)
       break
       case 'Yesterday':  newDateObj(yesterdayStart, yesterdayEnd)
       break
@@ -99,22 +103,21 @@ export default class Calendar extends Component {
     if (from !== null && to !== null) {
      let dayFrom = unix(from)-(12*60*60)
      let dayTo = unix(to)+((12*60*60)-1)
-     this.obj.startDate = dayFrom
-     this.obj.endDate = dayTo
-     return this.obj
+     this.objTime.startDate = dayFrom
+     this.objTime.endDate = dayTo
+     return this.objTime
     }
     return
   }
 
   componentWillMount() {
-    return this.obj // default time loader
+    return this.objTime // default time loader
   }
 
   render() {
-    const {rangeDuration, addCustomRange} = this.state
+    const {rangeDuration, addCustomRange, rangeSelect} = this.state
     const defaultRange = rangeDuration && !addCustomRange
     const customRange = !rangeDuration && addCustomRange
-
     return (
       <div className="container">
         <button 
@@ -124,8 +127,8 @@ export default class Calendar extends Component {
         </button>
         {
           defaultRange
-          ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div>
-          : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate}/>
+          ? <div className="rangeContainer"><Range onTodoClick={this.addRange} handleRange={rangeSelect}/></div>
+          : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate} handleRange={rangeSelect}/>
         }
       </div>
     )

@@ -81,7 +81,10 @@ export default class DatePicker extends Component {
 
     return (
         <div className="dateContainer">
-        <Range onTodoClick={this.props.onTodoClick}/>
+        <Range 
+          onTodoClick={this.props.onTodoClick}
+          handleRange={this.props.handleRange}
+        />
         <div className="CalendarWrapper">
           <div className="DateRangeContainer">
             <input 
