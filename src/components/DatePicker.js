@@ -14,10 +14,9 @@ export default class DatePicker extends Component {
   }
   getInitialState() {
     return {
-      from: null,
+      from: this.props.savedFromTo.startDate,
       to: null,
-      enteredTo: null, // Keep track of the last day for mouseEnter.
-      
+      enteredTo: this.props.savedFromTo.endDate, // Keep track of the last day for mouseEnter.
     }
   }
   isSelectingFirstDay(from, to, day) {

@@ -16,6 +16,10 @@ export default class Calendar extends Component {
       startDate : this.now,
       endDate : this.now,
     }
+    this.simpleDate = {
+      startDate : new Date(),
+      endDate : new Date(),
+    }
   }
   getInitialState() {
     return {
@@ -56,7 +60,9 @@ export default class Calendar extends Component {
   
     const newDateObj = (start, end) => {
       this.objTime.startDate = unix(start)
-      this.objTime.endDate = unix(end) 
+      this.objTime.endDate = unix(end)
+      this.simpleDate.startDate = start
+      this.simpleDate.endDate = end
       return this.objTime
     }
 
@@ -64,12 +70,16 @@ export default class Calendar extends Component {
       const now = Math.floor(Date.now()/1000)
       this.objTime.startDate = now
       this.objTime.endDate = now
+      this.simpleDate.startDate = new Date()
+      this.simpleDate.endDate = new Date()
       return this.objTime
     }
 
     this.setState({
       rangeSelect: item,
     })
+
+
 
      switch (item) {
       case 'Custom Range': 
@@ -105,6 +115,8 @@ export default class Calendar extends Component {
      let dayTo = unix(to)+((12*60*60)-1)
      this.objTime.startDate = dayFrom
      this.objTime.endDate = dayTo
+     this.simpleDate.startDate = from
+     this.simpleDate.endDate = to
      return this.objTime
     }
     return
@@ -128,7 +140,7 @@ export default class Calendar extends Component {
         {
           defaultRange
           ? <div className="rangeContainer"><Range onTodoClick={this.addRange} handleRange={rangeSelect}/></div>
-          : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate} handleRange={rangeSelect}/>
+          : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate} handleRange={rangeSelect} savedFromTo={this.simpleDate}/>
         }
       </div>
     )
