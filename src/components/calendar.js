@@ -56,14 +56,14 @@ export default class Calendar extends Component {
     const newDateObj = (start, end) => {
       this.obj.startDate = unix(start)
       this.obj.endDate = unix(end) 
-      return console.log(this.obj)
+      return this.obj
     }
 
     const nowDateObj = () => {
       const now = Math.floor(Date.now()/1000)
       this.obj.startDate = now
       this.obj.endDate = now
-      return console.log(this.obj)
+      return this.obj
     }
 
 
@@ -95,20 +95,19 @@ export default class Calendar extends Component {
     }
   }
 
-  getCustomeDate = (from, to) => { 
-    console.log(this.obj)
+  getCustomeDate = (from, to) => {
     if (from !== null && to !== null) {
      let dayFrom = unix(from)-(12*60*60)
      let dayTo = unix(to)+((12*60*60)-1)
      this.obj.startDate = dayFrom
      this.obj.endDate = dayTo
-      console.log(this.obj)
+     return this.obj
     }
     return
   }
 
   componentWillMount() {
-    console.log('Live -', this.obj) // default time loader
+    return this.obj // default time loader
   }
 
   render() {
@@ -128,7 +127,7 @@ export default class Calendar extends Component {
           ? <div className="rangeContainer"><Range onTodoClick={this.addRange}/></div>
           : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate}/>
         }
-    </div>
+      </div>
     )
   }
 }
