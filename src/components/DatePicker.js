@@ -92,7 +92,7 @@ export default class DatePicker extends Component {
               value={`${decorateFrom}`}
               readOnly
             />
-            <input 
+            <input
               type="text" 
               className="inputDate" 
               value={`${decorateTo}`}
