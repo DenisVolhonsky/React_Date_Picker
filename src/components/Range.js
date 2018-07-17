@@ -1,7 +1,7 @@
 import React from 'react';
 import './calendar.css'
 
-const Range = ({onTodoClick, handleRange}) => {
+const Range = ({onTodoClick, handleRange, hideRange}) => {
   const range = [
     "Live",
     "Today",
@@ -11,7 +11,7 @@ const Range = ({onTodoClick, handleRange}) => {
     "Last 30 Days",
     "This Month",
     "Last Month",
-    "Custom Range"
+    "Custom Range",
   ]
   return (
     <div className="ranges">

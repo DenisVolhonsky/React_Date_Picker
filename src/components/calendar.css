@@ -174,17 +174,17 @@
 }
 
 .selectDuration {
-  margin: 50px;
+  margin: 10px;
   cursor: pointer;
-  display: inline-block;
+  display: block;
   background-color: #13ae38;
   color: #fff;
   text-shadow: none;
   min-height: 1em;
   outline: 0;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 3px;
 
 }
 .selectDuration:hover {
@@ -193,6 +193,7 @@
 
 .rangeContainer {
   display: inline-flex;
+  margin-left: 12px;
   max-width: 168px;
   background: rgba(32,39,34,.9);
   border-radius: 5px;

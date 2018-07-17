@@ -26,12 +26,14 @@ export default class Calendar extends Component {
       rangeDuration: false,
       addCustomRange: false,
       rangeSelect: "Live",
+      visibilityRange: 0,
     }
   }
 
   handleRange() {
     this.setState({
       rangeDuration: !this.state.rangeDuration,
+      visibilityRange: 1,
     })
   }
   
@@ -77,9 +79,8 @@ export default class Calendar extends Component {
 
     this.setState({
       rangeSelect: item,
+      visibilityRange: item === "Custom Range" ? 2 : 0,
     })
-
-
 
      switch (item) {
       case 'Custom Range': 
@@ -111,13 +112,13 @@ export default class Calendar extends Component {
 
   getCustomeDate = (from, to) => {
     if (from !== null && to !== null) {
-     let dayFrom = unix(from)-(12*60*60)
-     let dayTo = unix(to)+((12*60*60)-1)
-     this.objTime.startDate = dayFrom
-     this.objTime.endDate = dayTo
-     this.simpleDate.startDate = from
-     this.simpleDate.endDate = to
-     return this.objTime
+      let dayFrom = unix(from)-(12*60*60)
+      let dayTo = unix(to)+((12*60*60)-1)
+      this.objTime.startDate = dayFrom
+      this.objTime.endDate = dayTo
+      this.simpleDate.startDate = from
+      this.simpleDate.endDate = to
+      return this.objTime
     }
     return
   }
@@ -130,6 +131,7 @@ export default class Calendar extends Component {
     const {rangeDuration, addCustomRange, rangeSelect} = this.state
     const defaultRange = rangeDuration && !addCustomRange
     const customRange = !rangeDuration && addCustomRange
+    console.log(this.state.visibilityRange)
     return (
       <div className="container">
         <button 
