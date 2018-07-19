@@ -20,7 +20,7 @@ const Range = ({onTodoClick, handleRange}) => {
           <li 
             key={idx} 
             data-range-key={`${item}`} 
-            className={handleRange === item ? 'active' : null } 
+            className={handleRange === item ? 'active' : null} 
             onClick={()=>onTodoClick(item)}>{`${item}`}
           </li>
         )}

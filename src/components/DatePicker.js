@@ -55,6 +55,8 @@ export default class DatePicker extends Component {
     this.setState(this.getInitialState())
   }
 
+   
+
   render() {
     const { from, to, enteredTo} = this.state
     let decorateFrom
@@ -80,35 +82,35 @@ export default class DatePicker extends Component {
 
     return (
         <div className="dateContainer">
-        <Range 
-          onTodoClick={this.props.onTodoClick}
-          handleRange={this.props.handleRange}
-        />
-        <div className="CalendarWrapper">
-          <div className="DateRangeContainer">
-            <input 
-              type="text" 
-              className="inputDate" 
-              value={`${decorateFrom}`}
-              readOnly
-            />
-            <input
-              type="text" 
-              className="inputDate" 
-              value={`${decorateTo}`}
-              readOnly
-            />
-          </div>
-          <DayPicker
-            className="Range"
-            numberOfMonths={2}
-            fromMonth={from}
-            selectedDays={selectedDays}
-            disabledDays={disabledDays}
-            modifiers={modifiers}
-            onDayClick={this.handleDayClick}
-            onDayMouseEnter={this.handleDayMouseEnter}
+          <Range 
+            onTodoClick={this.props.onTodoClick}
+            handleRange={this.props.handleRange}
           />
+          <div className="CalendarWrapper">
+            <div className="DateRangeContainer">
+              <input 
+                type="text" 
+                className="inputDate" 
+                value={`${decorateFrom}`}
+                readOnly
+              />
+              <input
+                type="text" 
+                className="inputDate" 
+                value={`${decorateTo}`}
+                readOnly
+              />
+            </div>
+            <DayPicker
+              className="Range"
+              numberOfMonths={2}
+              fromMonth={from}
+              selectedDays={selectedDays}
+              disabledDays={disabledDays}
+              modifiers={modifiers}
+              onDayClick={this.handleDayClick}
+              onDayMouseEnter={this.handleDayMouseEnter}
+            />
         </div>
       </div>
     )
