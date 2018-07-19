@@ -23,8 +23,8 @@ export default class Calendar extends Component {
   }
   getInitialState() {
     return {
-      rangeDuration: false,
-      addCustomRange: false,
+      rangeDuration: false, // Range component
+      addCustomRange: false, // DatePicker component
       rangeSelect: "Live",
       visibilityRange: 0,
     }
@@ -38,6 +38,7 @@ export default class Calendar extends Component {
   }
   
   addRange(item) {
+
     const live = new Date()
     const weekDay = live.getDay()
     const Year = live.getFullYear()
@@ -76,6 +77,8 @@ export default class Calendar extends Component {
       this.simpleDate.endDate = new Date()
       return this.objTime
     }
+
+    this.handleRange()
 
     this.setState({
       rangeSelect: item,
@@ -129,8 +132,8 @@ export default class Calendar extends Component {
 
   render() {
     const {rangeDuration, addCustomRange, rangeSelect} = this.state
-    const defaultRange = rangeDuration && !addCustomRange
-    const customRange = !rangeDuration && addCustomRange
+    const defaultRange = rangeDuration && !addCustomRange // Range
+    const customRange = !rangeDuration && addCustomRange // DatePicker
     console.log(this.state.visibilityRange)
     return (
       <div className="container">
@@ -140,9 +143,12 @@ export default class Calendar extends Component {
           Select Duration
         </button>
         {
-          defaultRange
-          ? <div className="rangeContainer"><Range onTodoClick={this.addRange} handleRange={rangeSelect}/></div>
-          : customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate} handleRange={rangeSelect} savedFromTo={this.simpleDate}/>
+          defaultRange ? 
+            <div className="rangeContainer">
+             <Range onTodoClick={this.addRange} handleRange={rangeSelect}/>
+            </div>
+          : 
+            customRange && <DatePicker onTodoClick={this.addRange} onSelectDate={this.getCustomeDate} handleRange={rangeSelect} savedFromTo={this.simpleDate}/>
         }
       </div>
     )

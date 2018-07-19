@@ -1,7 +1,7 @@
 import React from 'react';
 import './calendar.css'
 
-const Range = ({onTodoClick, handleRange, hideRange}) => {
+const Range = ({onTodoClick, handleRange}) => {
   const range = [
     "Live",
     "Today",
